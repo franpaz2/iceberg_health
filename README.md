@@ -36,7 +36,7 @@ El médico introduce el historial clínico en texto libre. El sistema realiza un
 El sistema clasifica los fármacos extraídos en familias canónicas (ej. *AINEs, ISRS, Benzodiacepinas*) y ejecuta un análisis de cronofarmacología clínica para detectar errores posológicos (ej. fármacos recetados por la noche que requieren ayunas).
 
 ### Fase 3: Auditoría Industrial Determinista (El Cerebro)
-**Cero alucinaciones médicas.** En lugar de depender de un LLM para evaluar interacciones, el sistema utiliza **Pandas** y un algoritmo propio de *Fuzzy Matching* para cruzar el JSON extraído contra una **Base de Datos Master con más de 30.000 registros del Vademécum**.
+**Cero alucinaciones médicas.** En lugar de depender de un LLM para evaluar interacciones, el sistema utiliza **Pandas** y un algoritmo propio de *Fuzzy Matching* para cruzar el JSON extraído contra una **Base de Datos Master con más de 30.000 registros de AEMPS(CIMA)**.
 El motor evalúa instantáneamente:
 - Interacciones severas entre los fármacos prescritos.
 - Contraindicaciones por embarazo/lactancia.
@@ -58,7 +58,7 @@ El motor evalúa instantáneamente:
 * **Backend:** Python 3.10+, FastAPI, Pandas, FuzzyWuzzy/TheFuzz.
 * **Frontend:** HTMX, Tailwind CSS, Jinja2.
 * **IA & NLP:** Claude Sonnet 4.6 (OpenRouter API), Prompt Engineering.
-* **Datos:** Base de datos relacional (Master DB Vademécum).
+* **Datos:** Base de datos no relacional (AEMPS(CIMA)).
 
 ---
 *Desarrollado como parte del ecosistema de soluciones de **Iceberg Datum**.*
