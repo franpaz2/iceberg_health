@@ -1,5 +1,5 @@
-# Iceberg Health (SACA) 
-**Sistema de Auditoría Clínica Automatizada para Pacientes Polimedicados**
+# Iceberg Health
+**Automated Clinical Auditing System for Polypharmacy Patients**
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge&logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
@@ -8,57 +8,57 @@
 ![Claude](https://img.shields.io/badge/Claude_Sonnet_4.6-D97757?style=for-the-badge&logo=anthropic&logoColor=white)
 ![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
 
-> **Iceberg Health** es un motor SaaS de auditoría clínica diseñado para transformar historias clínicas desestructuradas en alertas médicas deterministas. Combina el poder del NLP avanzado con un motor de reglas algorítmicas para prevenir errores de prescripción en milisegundos.
+> **Iceberg Health** is a clinical auditing SaaS engine designed to transform unstructured medical histories into deterministic medical alerts. It combines the power of advanced NLP with an algorithmic rule engine to prevent prescription errors in milliseconds.
 
 ---
 
-## El Problema Clínico
-Los médicos de atención primaria y geriatras se enfrentan a diario a pacientes **polimedicados** (10+ fármacos diarios). Revisar manualmente el historial clínico desestructurado (*"toma paracetamol por la mañana, y a veces adiro"*) para detectar interacciones graves, dosis renales incorrectas o contraindicaciones tarda entre **15 y 30 minutos por paciente**. 
+## The Clinical Problem
+Primary care physicians and geriatricians deal daily with **polypharmacy** patients (taking 10+ daily drugs). Manually reviewing an unstructured clinical history (*"takes paracetamol in the morning, and sometimes adiro"*) to detect severe interactions, incorrect renal dosages, or contraindications takes between **15 and 30 minutes per patient**. 
 
-Este proceso manual es propenso a errores humanos que derivan en ingresos a urgencias por toxicidad farmacológica o fallos en la prescripción.
+This manual process is prone to human error, which can lead to emergency room admissions due to pharmacological toxicity or prescription failures.
 
-## La Solución
-Iceberg Health automatiza esta revisión exhaustiva en un flujo de trabajo de 3 fases, protegiendo al paciente y ahorrando miles de horas de trabajo administrativo al sistema de salud.
-
----
-
-## Arquitectura Técnica (Pipeline de 3 Fases)
-
-El proyecto es una aplicación web full-stack reactiva construida sobre **FastAPI, HTMX y Tailwind CSS**, impulsada por un potente motor de auditoría en Python.
-
-### Fase 1: Extracción NLP Libre (La Inteligencia)
-El médico introduce el historial clínico en texto libre. El sistema realiza una llamada a la API de **Claude Sonnet 4.6** (vía OpenRouter) utilizando *Prompt Engineering* avanzado.
-* **Input:** Texto clínico desestructurado.
-* **Procesamiento:** Inferencia de sexo, edad, enfermedades crónicas (asma, riesgo de caídas, problemas renales) y medicación con posología.
-* **Output:** JSON estructurado listo para computación.
-
-### Fase 2: Taxonomía y Enriquecimiento Farmacológico
-El sistema clasifica los fármacos extraídos en familias canónicas (ej. *AINEs, ISRS, Benzodiacepinas*) y ejecuta un análisis de cronofarmacología clínica para detectar errores posológicos (ej. fármacos recetados por la noche que requieren ayunas).
-
-### Fase 3: Auditoría Industrial Determinista (El Cerebro)
-**Cero alucinaciones médicas.** En lugar de depender de un LLM para evaluar interacciones, el sistema utiliza **Pandas** y un algoritmo propio de *Fuzzy Matching* para cruzar el JSON extraído contra una **Base de Datos Master con más de 30.000 registros de AEMPS(CIMA)**.
-El motor evalúa instantáneamente:
-- Interacciones severas entre los fármacos prescritos.
-- Contraindicaciones por embarazo/lactancia.
-- Ajustes de dosis por insuficiencia renal.
-- Imposibilidad de triturar pastillas (pacientes con disfagia).
-- Riesgo de caídas en pacientes geriátricos y alergias cruzadas.
+## The Solution
+Iceberg Health automates this exhaustive review through a 3-phase workflow, protecting the patient and saving the healthcare system thousands of hours of administrative work.
 
 ---
 
-## Impacto y Resultados
+## Technical Architecture (3-Phase Pipeline)
 
-| Métrica | Proceso Tradicional | Con Iceberg Health |
+The project is a reactive full-stack web application built on **FastAPI, HTMX, and Tailwind CSS**, driven by a powerful Python auditing engine.
+
+### Phase 1: Free NLP Extraction (The Intelligence)
+The physician inputs the clinical history in free text. The system makes an API call to **Claude Sonnet 4.6** (via OpenRouter) using advanced *Prompt Engineering*.
+* **Input:** Unstructured clinical text.
+* **Processing:** Inference of sex, age, chronic diseases (asthma, fall risk, renal problems), and medication with posology (dosage).
+* **Output:** Structured JSON ready for computation.
+
+### Phase 2: Taxonomy & Pharmacological Enrichment
+The system classifies the extracted drugs into canonical families (e.g., *NSAIDs, SSRIs, Benzodiazepines*) and executes a clinical chronopharmacology analysis to detect posological errors (e.g., drugs prescribed at night that require fasting).
+
+### Phase 3: Deterministic Industrial Audit (The Brain)
+**Zero medical hallucinations.** Instead of relying on an LLM to evaluate interactions, the system uses **Pandas** and a proprietary *Fuzzy Matching* algorithm to cross-reference the extracted JSON against a **Master Database containing over 30,000 records from AEMPS(CIMA)** (Spanish Agency of Medicines and Medical Devices).
+The engine instantaneously evaluates:
+- Severe interactions between prescribed drugs.
+- Contraindications due to pregnancy/lactation.
+- Dosage adjustments for renal impairment.
+- Inability to crush pills (patients with dysphagia).
+- Fall risk in geriatric patients and cross-allergies.
+
+---
+
+## Impact & Results
+
+| Metric | Traditional Process | With Iceberg Health |
 | :--- | :--- | :--- |
-| **Velocidad de Auditoría** | 15 - 30 minutos | **< 1 minuto** |
-| **Fiabilidad** | Dependiente del factor humano | **100% Determinista y Trazable** |
-| **UI / UX** | Software médico heredado (lento) | **Reactividad HTMX (Sin recargas)** |
+| **Audit Speed** | 15 - 30 minutes | **< 1 minute** |
+| **Reliability** | Dependent on the human factor | **100% Deterministic and Traceable** |
+| **UI / UX** | Legacy medical software (slow) | **HTMX Reactivity (No reloads)** |
 
-## Stack Tecnológico
+## Tech Stack
 * **Backend:** Python 3.10+, FastAPI, Pandas, FuzzyWuzzy/TheFuzz.
 * **Frontend:** HTMX, Tailwind CSS, Jinja2.
-* **IA & NLP:** Claude Sonnet 4.6 (OpenRouter API), Prompt Engineering.
-* **Datos:** Base de datos no relacional (AEMPS(CIMA)).
+* **AI & NLP:** Claude Sonnet 4.6 (OpenRouter API), Prompt Engineering.
+* **Data:** Non-relational database (AEMPS(CIMA)).
 
 ---
-*Desarrollado como parte del ecosistema de soluciones de **Iceberg Datum**.*
+*Developed as part of the **Iceberg Datum** ecosystem of solutions.*
